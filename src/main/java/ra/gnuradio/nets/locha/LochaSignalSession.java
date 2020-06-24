@@ -1,12 +1,9 @@
 package ra.gnuradio.nets.locha;
 
-import io.onemfive.network.sensors.fullspectrum.BaseSignalSession;
+import ra.common.network.NetworkPacket;
+import ra.gnuradio.BaseSignalSession;
 
 public class LochaSignalSession extends BaseSignalSession {
-
-    public LochaSignalSession(BaseSensor sensor) {
-        super(sensor);
-    }
 
     @Override
     public boolean open(String address) {
@@ -38,13 +35,4 @@ public class LochaSignalSession extends BaseSignalSession {
         return null;
     }
 
-    @Override
-    public boolean send(NetworkRequestOp requestOp) {
-        return false;
-    }
-
-    @Override
-    public boolean notify(NetworkNotifyOp notifyOp) {
-        return false;
-    }
 }

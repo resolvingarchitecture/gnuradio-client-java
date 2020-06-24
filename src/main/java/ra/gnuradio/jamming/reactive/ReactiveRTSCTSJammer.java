@@ -1,6 +1,7 @@
-package io.onemfive.network.sensors.fullspectrum.jamming.reactive;
+package ra.gnuradio.jamming.reactive;
 
-import io.onemfive.network.sensors.fullspectrum.jamming.BaseJammer;
+
+import ra.gnuradio.jamming.BaseJammer;
 
 public class ReactiveRTSCTSJammer extends BaseJammer {
 }

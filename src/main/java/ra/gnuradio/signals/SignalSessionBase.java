@@ -2,6 +2,8 @@ package ra.gnuradio.signals;
 
 import ra.common.JSONSerializable;
 import ra.gnuradio.SignalSession;
+import ra.util.JSONParser;
+import ra.util.JSONPretty;
 import ra.util.RandomUtil;
 
 import java.util.HashMap;
@@ -65,31 +67,6 @@ public abstract class SignalSessionBase implements SignalSession, JSONSerializab
     @Override
     public boolean close() {
         return false;
-    }
-
-    @Override
-    public boolean send(NetworkRequestOp requestOp) {
-        return false;
-    }
-
-    @Override
-    public boolean notify(NetworkNotifyOp notifyOp) {
-        return false;
-    }
-
-    @Override
-    public Boolean send(NetworkPacket packet) {
-        return null;
-    }
-
-    @Override
-    public void addSessionListener(SessionListener listener) {
-
-    }
-
-    @Override
-    public void removeSessionListener(SessionListener listener) {
-
     }
 
     @Override

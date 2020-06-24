@@ -1,6 +1,8 @@
 package ra.gnuradio;
 
-public interface SignalSession extends ProtocolSession {
+import ra.common.network.NetworkSession;
+
+public interface SignalSession extends NetworkSession {
     String getName();
     String getFullName();
     Integer getPort();

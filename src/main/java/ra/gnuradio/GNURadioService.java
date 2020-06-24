@@ -1,6 +1,10 @@
 package ra.gnuradio;
 
-import ra.common.Network;
+import ra.common.Envelope;
+import ra.common.messaging.MessageProducer;
+import ra.common.network.*;
+import ra.common.service.NetworkService;
+import ra.common.service.ServiceStatusListener;
 import ra.util.tasks.TaskRunner;
 
 import java.util.Properties;
@@ -12,45 +16,27 @@ import java.util.logging.Logger;
  * GNU Radio is licensed under the GPLv3 as of August 2019.
  *
  */
-public final class GNURadio extends BaseSensor {
+public final class GNURadioService extends NetworkService {
 
-    private Logger LOG = Logger.getLogger(GNURadio.class.getName());
+    private Logger LOG = Logger.getLogger(GNURadioService.class.getName());
 
-    public static final NetworkState config = new NetworkState();
-
-    public GNURadio() {
-        super(Network.FSRadio);
-        taskRunner = new TaskRunner(1, 1);
+    public GNURadioService() {
     }
 
-    public GNURadio(SensorManager sensorManager) {
-        super(sensorManager, Network.FSRadio);
-        taskRunner = new TaskRunner(1, 1);
+    public GNURadioService(MessageProducer producer, ServiceStatusListener listener) {
+        super(producer, listener);
     }
 
-    @Override
-    public String[] getOperationEndsWith() {
-        return new String[]{".sdr"};
-    }
-
-    @Override
-    public String[] getURLBeginsWith() {
-        return new String[]{"sdr"};
-    }
-
-    @Override
-    public String[] getURLEndsWith() {
-        return new String[]{".sdr"};
-    }
-
-    @Override
-    public SensorSession establishSession(String address, Boolean autoConnect) {
+    public NetworkSession establishSession(String address, Boolean autoConnect) {
         return null;
     }
 
-    @Override
     public void updateState(NetworkState networkState) {
         LOG.warning("Not implemented.");
+    }
+
+    protected Request buildRequest(NetworkPeer networkPeer, NetworkPeer networkPeer1) {
+        return null;
     }
 
     /**
@@ -59,8 +45,8 @@ public final class GNURadio extends BaseSensor {
      *                 To DID must contain base64 encoded Radio destination key.
      * @return boolean was successful
      */
-    @Override
-    public boolean sendOut(NetworkPacket packet) {
+
+    public boolean send(NetworkPacket packet) {
         LOG.info("Sending Radio Message...");
 //        Envelope envelope = packet.getEnvelope();
 //        NetworkRequest request = (NetworkRequest) DLC.getData(NetworkRequest.class,envelope);
@@ -111,11 +97,6 @@ public final class GNURadio extends BaseSensor {
         return true;
     }
 
-    @Override
-    public boolean sendIn(Envelope envelope) {
-        return super.sendIn(envelope);
-    }
-
     /**
      * Will be called only if you register via addSessionListener().
      *
@@ -127,7 +108,7 @@ public final class GNURadio extends BaseSensor {
      *
      * @param session session to notify
      */
-    public void messageAvailable(SensorSession session) {
+    public void messageAvailable(NetworkSession session) {
 //        RadioDatagram d = session.receiveDatagram(port);
 //        LOG.info("Received Radio Message:\n\tFrom: " + d.from.getSDRAddress());
 //        Envelope e = Envelope.eventFactory(EventMessage.Type.TEXT);
