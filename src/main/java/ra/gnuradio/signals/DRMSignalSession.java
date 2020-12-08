@@ -1,10 +1,11 @@
 package ra.gnuradio.signals;
 
-import ra.common.network.NetworkPacket;
+
+import ra.common.Envelope;
 
 public class DRMSignalSession extends SignalSessionBase {
     @Override
-    public Boolean send(NetworkPacket networkPacket) {
+    public Boolean send(Envelope envelope) {
         return null;
     }
 }

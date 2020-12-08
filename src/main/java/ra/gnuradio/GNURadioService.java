@@ -3,8 +3,7 @@ package ra.gnuradio;
 import ra.common.Envelope;
 import ra.common.messaging.MessageProducer;
 import ra.common.network.*;
-import ra.common.service.NetworkService;
-import ra.common.service.ServiceStatusListener;
+import ra.common.service.ServiceStatusObserver;
 import ra.util.tasks.TaskRunner;
 
 import java.util.Properties;
@@ -21,79 +20,23 @@ public final class GNURadioService extends NetworkService {
     private Logger LOG = Logger.getLogger(GNURadioService.class.getName());
 
     public GNURadioService() {
+        super(Network.FSRadio);
     }
 
-    public GNURadioService(MessageProducer producer, ServiceStatusListener listener) {
-        super(producer, listener);
-    }
-
-    public NetworkSession establishSession(String address, Boolean autoConnect) {
-        return null;
-    }
-
-    public void updateState(NetworkState networkState) {
-        LOG.warning("Not implemented.");
-    }
-
-    protected Request buildRequest(NetworkPeer networkPeer, NetworkPeer networkPeer1) {
-        return null;
+    public GNURadioService(MessageProducer producer, ServiceStatusObserver observer) {
+        super(Network.FSRadio, producer, observer);
     }
 
     /**
      * Sends UTF-8 content to a Radio Peer using Software Defined Radio (SDR).
-     * @param packet Envelope containing SensorRequest as data.
+     * @param envelope Envelope containing data.
      *                 To DID must contain base64 encoded Radio destination key.
      * @return boolean was successful
      */
-
-    public boolean send(NetworkPacket packet) {
+    @Override
+    public Boolean sendOut(Envelope envelope) {
         LOG.info("Sending Radio Message...");
-//        Envelope envelope = packet.getEnvelope();
-//        NetworkRequest request = (NetworkRequest) DLC.getData(NetworkRequest.class,envelope);
-//        if(request == null){
-//            LOG.warning("No SensorRequest in Envelope.");
-//            request.statusCode = ServiceMessage.REQUEST_REQUIRED;
-//            return false;
-//        }
-//        NetworkPeer toPeer = request.destination.getPeer(Network.SDR.name());
-//        if(toPeer == null) {
-//            LOG.warning("No Peer for Radio found in toDID while sending to Radio.");
-//            request.statusCode = NetworkRequest.DESTINATION_PEER_REQUIRED;
-//            return false;
-//        }
-//        if(!Network.SDR.name().equals((toPeer.getNetwork()))) {
-//            LOG.warning("Radio requires an SDR Peer.");
-//            request.statusCode = NetworkRequest.DESTINATION_PEER_WRONG_NETWORK;
-//            return false;
-//        }
-//        NetworkPeer fromPeer = request.origination.getPeer(Network.SDR.name());
-//        LOG.info("Content to send: "+request.content);
-//        if(request.content == null) {
-//            LOG.warning("No content found in Envelope while sending to Radio.");
-//            request.statusCode = NetworkRequest.NO_CONTENT;
-//            return false;
-//        }
 
-//        Radio radio = RadioSelector.determineBestRadio(toRPeer);
-//        if(radio==null) {
-//            LOG.warning("Unhandled issue #1 here.");
-//            return false;
-//        }
-//        RadioSession session = radio.establishSession(toRPeer, true);
-//        if(session==null) {
-//            LOG.warning("Unhandled issue #2 here.");
-//            return false;
-//        }
-//        RadioDatagram datagram = session.toRadioDatagram(request);
-//        Properties options = new Properties();
-//        if(session.sendDatagram(datagram)) {
-//            LOG.info("Radio Message sent.");
-//            return true;
-//        } else {
-//            LOG.warning("Radio Message sending failed.");
-//            request.statusCode = NetworkRequest.SENDING_FAILED;
-//            return false;
-//        }
         return true;
     }
 
@@ -108,7 +51,7 @@ public final class GNURadioService extends NetworkService {
      *
      * @param session session to notify
      */
-    public void messageAvailable(NetworkSession session) {
+    public void messageAvailable(SignalSession session) {
 //        RadioDatagram d = session.receiveDatagram(port);
 //        LOG.info("Received Radio Message:\n\tFrom: " + d.from.getSDRAddress());
 //        Envelope e = Envelope.eventFactory(EventMessage.Type.TEXT);

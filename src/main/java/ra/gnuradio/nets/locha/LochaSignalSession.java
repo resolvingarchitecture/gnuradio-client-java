@@ -1,6 +1,6 @@
 package ra.gnuradio.nets.locha;
 
-import ra.common.network.NetworkPacket;
+import ra.common.Envelope;
 import ra.gnuradio.BaseSignalSession;
 
 public class LochaSignalSession extends BaseSignalSession {
@@ -31,7 +31,7 @@ public class LochaSignalSession extends BaseSignalSession {
     }
 
     @Override
-    public Boolean send(NetworkPacket packet) {
+    public Boolean send(Envelope envelope) {
         return null;
     }
 

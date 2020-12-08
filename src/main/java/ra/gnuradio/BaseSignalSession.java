@@ -1,8 +1,8 @@
 package ra.gnuradio;
 
-import ra.common.network.BaseSession;
+import ra.common.network.BaseClientSession;
 
-public abstract class BaseSignalSession extends BaseSession implements SignalSession {
+public abstract class BaseSignalSession extends BaseClientSession implements SignalSession {
 
     @Override
     public String getName() {
