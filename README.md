@@ -53,6 +53,9 @@ https://fairwaves.co/products/equipment/
 ### Nuand
 70 MHz (47 MHz TX) - 6 GHz: https://www.nuand.com/bladerf-2-0-micro/
 
+### Satellites
+* Blockstream (Bitcoin) - https://store.blockstream.com/product/blockstream-satellite-pro-kit/
+
 ## Installation
 1. Install GNU Radio: https://wiki.gnuradio.org/index.php/InstallingGR
 
